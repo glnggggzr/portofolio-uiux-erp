@@ -8,3 +8,5 @@ Isi: 6 layar contoh (Dashboard, Pengguna & Hak Akses, Pesanan Penjualan, Permint
 - Versi cetak/PDF: `portofolio-erp-uiux-gilang.pdf`
 
 Catatan: dokumen ini adalah **studi kasus rancangan sendiri**, bukan pekerjaan berbayar dari klien. Nama perusahaan dan angka di dalamnya adalah contoh.
+
+Versi daring: https://glnggggzr.github.io/portofolio-uiux-erp/
