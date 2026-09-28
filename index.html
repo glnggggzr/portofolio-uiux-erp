@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portofolio UI/UX ERP — Gilang Zahra Ramdhani</title>
+<style>
+:root{
+  --bg:#EDF0F4; --surface:#fff; --border:#DBE1E8; --border-strong:#C6CFD8;
+  --ink:#16202A; --ink-2:#3B4855; --muted:#63707D; --faint:#8A96A3;
+  --accent:#1F5FBF; --accent-ink:#164C99; --accent-soft:#E9F0FB;
+  --ok:#1C7A4B; --ok-bg:#E7F4ED; --warn:#8A5300; --warn-bg:#FCF3E3;
+  --err:#A3231D; --err-bg:#FBEBEA; --neutral-bg:#EEF1F4;
+  --side:#1B2430; --side-2:#232F3D; --side-ink:#C7D1DC;
+  --sans:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+h1,h2,h3,h4{font-weight:600;margin:0;letter-spacing:-.01em}
+h1{font-size:30px;line-height:1.25}
+h2{font-size:20px}
+h3{font-size:15px}
+p{margin:8px 0 0}
+small{color:var(--muted)}
+.sheet{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:26px 28px;margin-bottom:22px}
+.eyebrow{font-size:11px;letter-spacing:.10em;text-transform:uppercase;color:var(--faint);font-weight:600}
+.tagline{color:var(--ink-2);font-size:15px;max-width:70ch;margin-top:10px}
+.meta{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:18px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600;display:block;font-size:13px}
+.notice{margin-top:18px;background:var(--accent-soft);border:1px solid #CBDDF7;color:var(--accent-ink);border-radius:8px;padding:10px 12px;font-size:12.5px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+ol,ul{margin:10px 0 0;padding-left:20px}
+li{margin:5px 0;color:var(--ink-2)}
+li b{color:var(--ink)}
+/* ---- swatches & type ---- */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:12px}
+.sw{border:1px solid var(--border);border-radius:8px;overflow:hidden;font-size:11.5px}
+.sw i{display:block;height:46px}
+.sw span{display:block;padding:6px 8px;color:var(--muted)}
+.sw b{display:block;color:var(--ink);font-weight:600}
+.typerow{display:flex;align-items:baseline;gap:14px;padding:8px 0;border-bottom:1px dashed var(--border)}
+.typerow span{color:var(--faint);font-size:11.5px;min-width:120px}
+/* ---- components ---- */
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border-strong);background:#fff;color:var(--ink);
+  border-radius:6px;padding:7px 12px;font-size:12.5px;font-weight:600;cursor:pointer;transition:transform .12s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn-ghost{border-color:transparent;background:transparent;color:var(--accent-ink)}
+.pill{display:inline-block;border-radius:20px;padding:2px 9px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.err{background:var(--err-bg);color:var(--err)}
+.pill.info{background:var(--accent-soft);color:var(--accent-ink)}
+.pill.n{background:var(--neutral-bg);color:var(--muted)}
+.chip{display:inline-block;border:1px solid var(--border-strong);border-radius:5px;padding:1px 7px;font-size:11px;color:var(--ink-2);background:#fff}
+.field{border:1px solid var(--border-strong);border-radius:6px;background:#fff;padding:8px 10px;font-size:13px;color:var(--ink)}
+.field .ph{color:var(--faint)}
+label.lb{display:block;font-size:11.5px;font-weight:600;color:var(--muted);margin-bottom:5px;letter-spacing:.02em}
+/* ---- app mockup ---- */
+.screen{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:18px 0 0}
+.chrome{display:flex;align-items:center;gap:8px;background:#F7F9FB;border-bottom:1px solid var(--border);padding:8px 12px;font-size:11.5px;color:var(--muted)}
+.dot{width:9px;height:9px;border-radius:50%;background:#D3DAE2}
+.chrome .url{margin-left:8px;background:#fff;border:1px solid var(--border);border-radius:20px;padding:3px 12px;color:var(--faint)}
+.app{display:grid;grid-template-columns:216px 1fr;min-height:560px}
+.sidebar{background:var(--side);color:var(--side-ink);padding:14px 0 18px}
+.brand{display:flex;align-items:center;gap:9px;padding:0 16px 14px;margin-bottom:10px;border-bottom:1px solid #2E3A48}
+.brand .lg{width:26px;height:26px;border-radius:6px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px}
+.brand b{color:#fff;font-weight:600;font-size:13.5px;display:block}
+.brand small{color:#8697A8;font-size:11px}
+.navgrp{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#7C8B9B;padding:14px 18px 6px}
+.navi{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 16px;font-size:13px;color:var(--side-ink);border-left:2px solid transparent}
+.navi.on{background:var(--side-2);color:#fff;border-left-color:var(--accent)}
+.navi .cd{font-size:10.5px;background:#31404F;color:#C9D5E1;border-radius:10px;padding:1px 7px}
+.navi.on .cd{background:var(--accent);color:#fff}
+.main{background:#F5F7FA;display:flex;flex-direction:column}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:10px 18px;display:flex;align-items:center;gap:14px}
+.crumb{font-size:12.5px;color:var(--muted)}
+.crumb b{color:var(--ink);font-weight:600}
+.crumb .sep{color:var(--faint);margin:0 6px}
+.topsearch{margin-left:auto;width:220px}
+.who{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-2)}
+.av{width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:600}
+.body{padding:16px 18px 22px}
+.pagehd{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+.pagehd h3{font-size:17px}
+.pagehd p{margin:3px 0 0;font-size:12.5px;color:var(--muted)}
+.pagehd .acts{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px 13px}
+.kpi .k{font-size:11.5px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.kpi .v{font-size:20px;font-weight:600;margin-top:6px;letter-spacing:-.02em}
+.kpi .d{font-size:11.5px;margin-top:3px;color:var(--muted)}
+.kpi .d.up{color:var(--ok)} .kpi .d.down{color:var(--err)}
+.cards{display:grid;grid-template-columns:1.35fr 1fr;gap:12px;margin-bottom:14px}
+.card{background:#fff;border:1px solid var(--border);border-radius:8px}
+.card .hd{padding:10px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.card .hd h4{font-size:13px}
+.card .hd .r{margin-left:auto;font-size:11.5px;color:var(--muted)}
+.card .bd{padding:12px 13px}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-align:left;font-weight:600;padding:8px 10px;border-bottom:1px solid var(--border-strong);background:#FAFBFC;white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--border);font-size:12.5px;color:var(--ink-2);vertical-align:middle}
+tbody tr:hover td{background:#FAFCFE}
+td b{color:var(--ink);font-weight:600}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.mono{font-family:Consolas,"SF Mono",Menlo,monospace;font-size:12px;color:var(--ink)}
+.sub{display:block;font-size:11px;color:var(--faint)}
+.filterbar{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;background:#fff;border:1px solid var(--border);border-radius:8px;padding:11px 12px;margin-bottom:12px}
+.filterbar .f{min-width:132px}
+.pager{display:flex;align-items:center;gap:10px;padding:10px 2px 0;font-size:12px;color:var(--muted)}
+.pager .pg{margin-left:auto;display:flex;gap:4px}
+.pg i{border:1px solid var(--border);background:#fff;border-radius:5px;padding:2px 8px;font-style:normal;font-size:12px;color:var(--ink-2)}
+.pg i.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.timeline{margin:2px 0 0;padding:0;list-style:none}
+.timeline li{position:relative;padding:0 0 14px 20px;border-left:1px solid var(--border-strong);margin:0}
+.timeline li:last-child{border-left-color:transparent;padding-bottom:0}
+.timeline li:before{content:"";position:absolute;left:-5px;top:3px;width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid var(--border-strong)}
+.timeline li.done:before{border-color:var(--ok);background:var(--ok)}
+.timeline li.now:before{border-color:var(--accent);background:var(--accent)}
+.timeline .t{font-size:12.5px;color:var(--ink);font-weight:600}
+.timeline .s{font-size:11.5px;color:var(--muted)}
+.steps{display:flex;align-items:center;gap:0;margin:4px 0 14px;flex-wrap:wrap}
+.step{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);padding-right:10px}
+.step .n{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;background:#fff}
+.step.done .n{background:var(--ok);border-color:var(--ok);color:#fff}
+.step.on .n{background:var(--accent);border-color:var(--accent);color:#fff}
+.step.on{color:var(--ink);font-weight:600}
+.step .ln{width:26px;height:1px;background:var(--border-strong);display:inline-block}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.tabs span{padding:7px 12px;font-size:12.5px;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs span.on{color:var(--accent-ink);border-bottom-color:var(--accent);font-weight:600}
+.grid2{display:grid;grid-template-columns:1.6fr 1fr;gap:12px;align-items:start}
+.matrix{border-collapse:collapse;width:100%}
+.matrix th,.matrix td{text-align:center;font-size:12px}
+.matrix th:first-child,.matrix td:first-child{text-align:left}
+.matrix .bx{display:inline-block;width:15px;height:15px;border-radius:4px;border:1.5px solid var(--border-strong);background:#fff}
+.matrix .bx.on{background:var(--accent);border-color:var(--accent)}
+.matrix .bx.ro{background:var(--accent-soft);border-color:#B9CFF0}
+.empty{border:1px dashed var(--border-strong);border-radius:8px;padding:22px;text-align:center;color:var(--muted);background:#FBFCFD;font-size:12.5px}
+.note{background:#FBFCFD;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:10px 12px;font-size:12.5px;color:var(--ink-2)}
+.caption{border-top:1px solid var(--border);border-left:3px solid var(--accent);background:#FBFCFD;padding:14px 16px}
+.caption h4{font-size:13px;margin-bottom:2px}
+.caption ul{margin-top:6px}
+.caption li{font-size:12.5px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:8px}
+.bar svg{display:block;width:100%;height:132px}
+.spark{display:block;width:100%;height:52px}
+footer{color:var(--muted);font-size:12.5px;text-align:center;padding:6px 0 0}
+@media (max-width:900px){
+  .cols,.cols3,.kpis,.cards,.grid2{grid-template-columns:1fr}
+  .app{grid-template-columns:1fr}
+  .sidebar{display:none}
+}
+@media print{
+  @page{size:A4 landscape;margin:10mm}
+  html,body{background:#fff}
+  .wrap{max-width:none;padding:0}
+  .sheet,.screen{break-inside:avoid;box-shadow:none}
+  .pagebreak{break-after:page}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============ COVER ============ -->
+<section class="sheet pagebreak">
+  <div class="eyebrow">Studi kasus rancangan &middot; Aplikasi internal (web)</div>
+  <h1>UI/UX untuk aplikasi ERP<br>5 modul inti: Pengguna, Penjualan, Pembelian, Persediaan, Akuntansi</h1>
+  <p class="tagline">Rancangan antarmuka untuk aplikasi ERP berbasis web yang dipakai staf operasional setiap hari: pengguna yang berpindah antar-modul, memproses dokumen berstatus, dan bekerja cepat dengan data padat. Fokusnya bukan tampilan yang ramai, tapi kecepatan kerja dan kejelasan alur dokumen.</p>
+  <div class="meta">
+    <div><b>Perancang</b>Gilang Zahra Ramdhani</div>
+    <div><b>Latar</b>Pengembang web (Laravel/PHP) &middot; 3 tahun</div>
+    <div><b>Ruang lingkup</b>6 layar contoh + kerangka design system</div>
+    <div><b>Sifat</b>Konsep/studi kasus mandiri</div>
+  </div>
+  <div class="notice">Catatan jujur: dokumen ini adalah <b>studi kasus rancangan sendiri</b> untuk menunjukkan cara saya bekerja, bukan pekerjaan berbayar dari klien. Nama perusahaan dan angka di dalamnya adalah contoh.</div>
+</section>
+
+<!-- ============ 1. KONTEKS ============ -->
+<section class="sheet pagebreak">
+  <div class="eyebrow">01 &middot; Konteks &amp; batasan</div>
+  <h2>Masalah yang harus dijawab rancangan ini</h2>
+  <div class="cols" style="margin-top:14px">
+    <div>
+      <h3>Siapa pemakainya</h3>
+      <ul>
+        <li><b>Admin/operator</b> — entri puluhan dokumen per hari; butuh keyboard, bukan mouse.</li>
+        <li><b>Kepala bagian</b> — hanya menyetujui dan memantau; butuh ringkasan, bukan tabel panjang.</li>
+        <li><b>Gudang</b> — memastikan barang keluar/masuk benar; butuh angka stok yang bisa dipercaya.</li>
+        <li><b>Keuangan</b> — menutup periode; butuh jejak dokumen dan konsistensi angka.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Batasan yang menentukan desain</h3>
+      <ul>
+        <li><b>Modul banyak, pola serupa.</b> Kalau tiap modul di desain sendiri, biaya perawatan tampilan membengkak — jadi pola tabel–filter–form–detail harus seragam.</li>
+        <li><b>Dokumen punya status.</b> Status bukan hiasan: ia menentukan tombol apa yang boleh muncul.</li>
+        <li><b>Hak akses berbeda per peran.</b> Menu harus mengikuti izin, bukan disembunyikan CSS.</li>
+        <li><b>Aplikasi dipakai lama.</b> Kepadatan informasi lebih penting daripada ruang kosong.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note" style="margin-top:16px">Prinsip kerja: <b>satu layar = satu pekerjaan</b>. Setiap layar harus jelas menjawab “apa yang harus saya lakukan di sini”, bukan sekadar menampilkan data.</div>
+</section>
+
+<!-- ============ 2. PENDEKATAN ============ -->
+<section class="sheet pagebreak">
+  <div class="eyebrow">02 &middot; Pendekatan</div>
+  <h2>Urutan kerja saya (dan alasannya)</h2>
+  <div class="cols3" style="margin-top:14px">
+    <div class="card"><div class="hd"><h4>1. Daftar layar lebih dulu</h4></div><div class="bd">
+      <p>Sebelum menggambar, seluruh layar tiap modul didata dan dikelompokkan (daftar, form, detail, laporan). Dari sini jumlah pekerjaan jadi angka nyata, bukan “seluruh halaman”.</p></div></div>
+    <div class="card"><div class="hd"><h4>2. Design system</h4></div><div class="bd">
+      <p>Warna, tipografi, jarak, dan komponen disusun sekali: tabel, filter, form, modal, status, notifikasi. Modul ke-2 sampai ke-5 menjadi jauh lebih cepat.</p></div></div>
+    <div class="card"><div class="hd"><h4>3. Layar per modul</h4></div><div class="bd">
+      <p>Tiap modul dirancang mengikuti alur dokumennya (diajukan → disetujui → diproses → selesai), termasuk keadaan kosong, sedang memuat, dan gagal.</p></div></div>
+  </div>
+  <div class="cols3" style="margin-top:14px">
+    <div class="card"><div class="hd"><h4>4. Serah terima ke programmer</h4></div><div class="bd">
+      <p>Disertai catatan implementasi: ukuran, jarak, warna status, perilaku saat data kosong. Tujuannya agar programmer tidak menebak-nebak.</p></div></div>
+    <div class="card"><div class="hd"><h4>Yang sengaja tidak dilakukan</h4></div><div class="bd">
+      <p>Tidak menambah grafik atau animasi yang tidak menjawab pertanyaan pengguna. ERP jarang dinilai dari efek, tapi dari berapa cepat orang menyelesaikan pekerjaannya.</p></div></div>
+    <div class="card"><div class="hd"><h4>Ukuran keberhasilan</h4></div><div class="bd">
+      <p>Operator bisa membuat satu dokumen penjualan tanpa bertanya; atasan bisa menyetujui dokumen dalam satu layar; gudang bisa menjelaskan selisih stok dari kartu stok.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ 3. DESIGN SYSTEM ============ -->
+<section class="sheet pagebreak">
+  <div class="eyebrow">03 &middot; Kerangka design system</div>
+  <h2>Warna, tipografi, dan komponen</h2>
+  <p class="tagline">Satu warna aksen (biru), abu-abu netral untuk struktur, dan empat warna semantik khusus status dokumen — dipakai konsisten di semua modul.</p>
+
+  <div class="swatches">
+    <div class="sw"><i style="background:#1F5FBF"></i><span><b>Aksen</b>#1F5FBF</span></div>
+    <div class="sw"><i style="background:#1B2430"></i><span><b>Navigasi</b>#1B2430</span></div>
+    <div class="sw"><i style="background:#F5F7FA"></i><span><b>Latar isi</b>#F5F7FA</span></div>
+    <div class="sw"><i style="background:#DBE1E8"></i><span><b>Garis</b>#DBE1E8</span></div>
+    <div class="sw"><i style="background:#16202A"></i><span><b>Teks</b>#16202A</span></div>
+    <div class="sw"><i style="background:#63707D"></i><span><b>Teks kedua</b>#63707D</span></div>
+    <div class="sw"><i style="background:#1C7A4B"></i><span><b>Selesai</b>#1C7A4B</span></div>
+    <div class="sw"><i style="background:#8A5300"></i><span><b>Menunggu</b>#8A5300</span></div>
+    <div class="sw"><i style="background:#A3231D"></i><span><b>Ditolak/batal</b>#A3231D</span></div>
+    <div class="sw"><i style="background:#1F5FBF"></i><span><b>Berjalan</b>#1F5FBF</span></div>
+  </div>
+
+  <div class="cols" style="margin-top:20px">
+    <div>
+      <h3>Tipografi</h3>
+      <div class="typerow"><span>Judul halaman &middot; 17px &middot; 600</span><b style="font-size:17px">Daftar Pesanan Penjualan</b></div>
+      <div class="typerow"><span>Judul bagian &middot; 13px &middot; 600</span><b style="font-size:13px">Dokumen menunggu tindakan</b></div>
+      <div class="typerow"><span>Isi tabel &middot; 12.5px &middot; 400</span><span style="font-size:12.5px">PT Andalan Niaga — SO-2026-0412</span></div>
+      <div class="typerow"><span>Label kolom &middot; 11px &middot; 600</span><span style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#63707D">Nilai Dokumen</span></div>
+      <div class="typerow" style="border-bottom:none"><span>Angka &middot; tabular</span><span class="mono">Rp 128.450.000</span></div>
+      <p style="font-size:12.5px">Satu rupa huruf saja (Segoe UI/Roboto) supaya tabel tetap rapi dan cepat dibaca. Angka memakai lebar tabular agar kolom nominal lurus satu sama lain.</p>
+    </div>
+    <div>
+      <h3>Komponen</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <button class="btn btn-primary">Buat Pesanan</button>
+        <button class="btn">Ekspor</button>
+        <button class="btn btn-ghost">Kolom</button>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+        <span class="pill n">Draf</span><span class="pill info">Dikonfirmasi</span><span class="pill warn">Menunggu persetujuan</span><span class="pill ok">Selesai</span><span class="pill err">Ditolak</span>
+      </div>
+      <div style="margin-top:14px">
+        <label class="lb">Pelanggan</label>
+        <div class="field"><span class="ph">Cari nama pelanggan atau kode…</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+        <div><label class="lb">Gudang</label><div class="field">Gudang Utama</div></div>
+        <div><label class="lb">Tanggal</label><div class="field">28/09/2026</div></div>
+      </div>
+      <div class="empty" style="margin-top:14px">Belum ada dokumen pada filter ini.<br><span style="color:var(--accent-ink)">Ubah filter</span> atau <span style="color:var(--accent-ink)">buat pesanan baru</span>.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><span class="chip">Gudang Utama</span><span class="chip">Periode: Sep 2026</span><span class="chip">Hanya terlambat</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 1: DASHBOARD ============ -->
+<section class="screen pagebreak">
+  <div class="chrome"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">erp.andalanniaga.co.id/dashboard</span></div>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><div class="lg">A</div><div><b>Andalan ERP</b><small>PT Andalan Niaga</small></div></div>
+      <div class="navgrp">Ringkasan</div>
+      <div class="navi on">Dashboard</div>
+      <div class="navgrp">Operasional</div>
+      <div class="navi">Penjualan <span class="cd">14</span></div>
+      <div class="navi">Pembelian <span class="cd">12</span></div>
+      <div class="navi">Persediaan</div>
+      <div class="navgrp">Keuangan</div>
+      <div class="navi">Akuntansi</div>
+      <div class="navi">Laporan</div>
+      <div class="navgrp">Pengaturan</div>
+      <div class="navi">Pengguna <span class="cd">28</span></div>
+      <div class="navi">Peran &amp; Izin</div>
+    </aside>
+    <div class="main">
+      <div class="topbar">
+        <div class="crumb">Ringkasan <span class="sep">/</span> <b>Dashboard</b></div>
+        <div class="topsearch"><div class="field" style="padding:6px 10px;font-size:12.5px"><span class="ph">Cari dokumen (F2)…</span></div></div>
+        <div class="who"><div class="av">GA</div> Gilang A. <span class="pill n">Admin</span></div>
+      </div>
+      <div class="body">
+        <div class="pagehd">
+          <div><h3>Selamat pagi, Gilang</h3><p>29 dokumen menunggu tindakan Anda · periode September 2026 berjalan</p></div>
+          <div class="acts"><button class="btn">Unduh ringkasan</button><button class="btn btn-primary">Buat dokumen</button></div>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><div class="k"><span>Penjualan bulan ini</span></div><div class="v">Rp 1,84 M</div><div class="d up">+6,2% dari Agustus</div></div>
+          <div class="kpi"><div class="k"><span>PO menunggu persetujuan</span></div><div class="v">12</div><div class="d">Nilai Rp 486 jt</div></div>
+          <div class="kpi"><div class="k"><span>Nilai persediaan</span></div><div class="v">Rp 3,1 M</div><div class="d down">8 barang di bawah minimum</div></div>
+          <div class="kpi"><div class="k"><span>Piutang jatuh tempo</span></div><div class="v">Rp 268 jt</div><div class="d down">9 faktur terlambat</div></div>
+        </div>
+        <div class="cards">
+          <div class="card">
+            <div class="hd"><h4>Penjualan 6 bulan terakhir</h4><span class="r">dalam juta Rupiah</span></div>
+            <div class="bd bar">
+              <svg viewBox="0 0 560 132" preserveAspectRatio="none" role="img" aria-label="Grafik batang penjualan enam bulan">
+                <line x1="0" y1="110" x2="560" y2="110" stroke="#DBE1E8"/>
+                <g fill="#1F5FBF">
+                  <rect x="26" y="66" width="52" height="44" rx="3" opacity=".55"/>
+                  <rect x="110" y="52" width="52" height="58" rx="3" opacity=".55"/>
+                  <rect x="194" y="58" width="52" height="52" rx="3" opacity=".55"/>
+                  <rect x="278" y="38" width="52" height="72" rx="3" opacity=".55"/>
+                  <rect x="362" y="44" width="52" height="66" rx="3" opacity=".55"/>
+                  <rect x="446" y="22" width="52" height="88" rx="3"/>
+                </g>
+                <g fill="#8A96A3" font-size="11" font-family="Segoe UI" text-anchor="middle">
+                  <text x="52" y="126">Apr</text><text x="136" y="126">Mei</text><text x="220" y="126">Jun</text>
+                  <text x="304" y="126">Jul</text><text x="388" y="126">Agu</text><text x="472" y="126">Sep</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="card">
+            <div class="hd"><h4>Stok menipis</h4><span class="r">8 barang</span></div>
+            <div class="bd" style="padding:0">
+              <table>
+                <thead><tr><th>Barang</th><th class="num">Tersedia</th><th class="num">Minimum</th></tr></thead>
+                <tbody>
+                  <tr><td><b>Cat Dasar 20L</b><span class="sub">GD-UTM</span></td><td class="num">6</td><td class="num">25</td></tr>
+                  <tr><td><b>Keramik 60×60</b><span class="sub">GD-UTM</span></td><td class="num">18</td><td class="num">40</td></tr>
+                  <tr><td><b>Pipa PVC 3"</b><span class="sub">GD-BKS</span></td><td class="num">32</td><td class="num">50</td></tr>
+                  <tr><td><b>Sekrup Baja 5cm</b><span class="sub">GD-BKS</span></td><td class="num">44</td><td class="num">60</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="hd"><h4>Menunggu tindakan Anda</h4><span class="r">Tampilkan semua</span></div>
+          <div class="bd" style="padding:0">
+            <table>
+              <thead><tr><th>Dokumen</th><th>Jenis</th><th>Diajukan</th><th class="num">Nilai</th><th>Status</th><th></th></tr></thead>
+              <tbody>
+                <tr><td><b class="mono">PR-2026-0188</b><span class="sub">Permintaan pembelian · 4 item</span></td><td>Pembelian</td><td>28/09 09:12</td><td class="num">Rp 62.400.000</td><td><span class="pill warn">Menunggu Anda</span></td><td style="text-align:right"><button class="btn btn-primary" style="padding:4px 10px">Setujui</button></td></tr>
+                <tr><td><b class="mono">SO-2026-0412</b><span class="sub">Pesanan penjualan · PT Sinar Jaya</span></td><td>Penjualan</td><td>28/09 08:40</td><td class="num">Rp 128.450.000</td><td><span class="pill info">Dikonfirmasi</span></td><td style="text-align:right"><button class="btn" style="padding:4px 10px">Buka</button></td></tr>
+                <tr><td><b class="mono">GRN-2026-0091</b><span class="sub">Penerimaan barang · PO-2026-0330</span></td><td>Persediaan</td><td>27/09 16:05</td><td class="num">—</td><td><span class="pill err">Selisih 3 item</span></td><td style="text-align:right"><button class="btn" style="padding:4px 10px">Periksa</button></td></tr>
+                <tr><td><b class="mono">JV-2026-1240</b><span class="sub">Jurnal umum · penyesuaian sewa</span></td><td>Akuntansi</td><td>27/09 14:22</td><td class="num">Rp 18.000.000</td><td><span class="pill warn">Menunggu Anda</span></td><td style="text-align:right"><button class="btn btn-primary" style="padding:4px 10px">Setujui</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="caption">
+    <h4>Layar 1/6 &middot; Dashboard — satu layar untuk tahu “apa yang harus saya kerjakan”</h4>
+    <ul>
+      <li><b>Kartu angka di atas, pekerjaan di bawah.</b> Atasan ingin ringkasan; operator ingin daftar tugas. Keduanya ada di layar yang sama, dipisah jelas.</li>
+      <li><b>Tombol tindakan langsung di baris tabel (“Setujui”).</b> Menyetujui adalah pekerjaan paling sering; memaksa pengguna membuka dokumen dulu hanya menambah dua langkah.</li>
+      <li><b>Status memakai warna semantik yang sama di seluruh aplikasi</b> — kuning menunggu, biru berjalan, hijau selesai, merah masalah. Sekali dipelajari, berlaku di semua modul.</li>
+      <li><b>Pencarian dokumen ditempatkan di bar atas (F2).</b> Operator yang tidak tahu posisi menu bisa langsung melompat ke nomor dokumen.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ SCREEN 2: USER & HAK AKSES ============ -->
+<section class="screen pagebreak">
+  <div class="chrome"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">erp.andalanniaga.co.id/pengguna</span></div>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><div class="lg">A</div><div><b>Andalan ERP</b><small>PT Andalan Niaga</small></div></div>
+      <div class="navgrp">Ringkasan</div>
+      <div class="navi">Dashboard</div>
+      <div class="navgrp">Operasional</div>
+      <div class="navi">Penjualan</div>
+      <div class="navi">Pembelian</div>
+      <div class="navi">Persediaan</div>
+      <div class="navgrp">Keuangan</div>
+      <div class="navi">Akuntansi</div>
+      <div class="navgrp">Pengaturan</div>
+      <div class="navi on">Pengguna <span class="cd">28</span></div>
+      <div class="navi">Peran &amp; Izin</div>
+      <div class="navi">Riwayat Aktivitas</div>
+    </aside>
+    <div class="main">
+      <div class="topbar">
+        <div class="crumb">Pengaturan <span class="sep">/</span> <b>Pengguna</b></div>
+        <div class="topsearch"><div class="field" style="padding:6px 10px;font-size:12.5px"><span class="ph">Cari dokumen (F2)…</span></div></div>
+        <div class="who"><div class="av">GA</div> Gilang A. <span class="pill n">Admin</span></div>
+      </div>
+      <div class="body">
+        <div class="pagehd">
+          <div><h3>Pengguna &amp; Hak Akses</h3><p>28 pengguna aktif · 6 peran · 2 menunggu verifikasi email</p></div>
+          <div class="acts"><button class="btn">Unduh daftar</button><button class="btn btn-primary">Tambah pengguna</button></div>
+        </div>
+        <div class="filterbar">
+          <div class="f"><label class="lb">Cari</label><div class="field"><span class="ph">Nama, email, atau NIP…</span></div></div>
+          <div class="f"><label class="lb">Peran</label><div class="field">Semua peran ▾</div></div>
+          <div class="f"><label class="lb">Status</label><div class="field">Aktif ▾</div></div>
+          <div><button class="btn btn-primary">Terapkan</button></div>
+          <div><button class="btn btn-ghost">Reset</button></div>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <div class="bd" style="padding:0">
+              <table>
+                <thead><tr><th>Nama</th><th>Peran</th><th>Terakhir masuk</th><th>Status</th><th></th></tr></thead>
+                <tbody>
+                  <tr><td><b>Rani Kusuma</b><span class="sub">rani.k@andalanniaga.co.id</span></td><td><span class="chip">Keuangan</span></td><td>28/09 07:55</td><td><span class="pill ok">Aktif</span></td><td style="text-align:right"><button class="btn" style="padding:3px 9px">Kelola</button></td></tr>
+                  <tr><td><b>Bayu Pratama</b><span class="sub">bayu.p@andalanniaga.co.id</span></td><td><span class="chip">Gudang</span></td><td>28/09 08:02</td><td><span class="pill ok">Aktif</span></td><td style="text-align:right"><button class="btn" style="padding:3px 9px">Kelola</button></td></tr>
+                  <tr><td><b>Dewi Anggraini</b><span class="sub">dewi.a@andalanniaga.co.id</span></td><td><span class="chip">Penjualan</span></td><td>27/09 17:20</td><td><span class="pill ok">Aktif</span></td><td style="text-align:right"><button class="btn" style="padding:3px 9px">Kelola</button></td></tr>
+                  <tr><td><b>Hendra Wijaya</b><span class="sub">hendra.w@andalanniaga.co.id</span></td><td><span class="chip">Kepala Bagian</span></td><td>26/09 11:41</td><td><span class="pill warn">Verifikasi email</span></td><td style="text-align:right"><button class="btn" style="padding:3px 9px">Kelola</button></td></tr>
+                  <tr><td><b>Siti Marlina</b><span class="sub">siti.m@andalanniaga.co.id</span></td><td><span class="chip">Penjualan</span></td><td>20/09 09:10</td><td><span class="pill err">Ditangguhkan</span></td><td style="text-align:right"><button class="btn" style="padding:3px 9px">Kelola</button></td></tr>
+                </tbody>
+              </table>
+              <div class="pager" style="padding:10px 13px 12px">
+                <span>Menampilkan 1–5 dari 28 pengguna</span>
+                <span class="pg"><i class="on">1</i><i>2</i><i>3</i><i>›</i></span>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="hd"><h4>Izin peran: Penjualan</h4><span class="r">matriks izin</span></div>
+            <div class="bd">
+              <table class="matrix">
+                <thead><tr><th>Modul</th><th>Lihat</th><th>Tambah</th><th>Ubah</th><th>Setujui</th></tr></thead>
+                <tbody>
+                  <tr><td>Penjualan</td><td><i class="bx on"></i></td><td><i class="bx on"></i></td><td><i class="bx on"></i></td><td><i class="bx"></i></td></tr>
+                  <tr><td>Persediaan</td><td><i class="bx ro"></i></td><td><i class="bx"></i></td><td><i class="bx"></i></td><td><i class="bx"></i></td></tr>
+                  <tr><td>Pembelian</td><td><i class="bx ro"></i></td><td><i class="bx"></i></td><td><i class="bx"></i></td><td><i class="bx"></i></td></tr>
+                  <tr><td>Akuntansi</td><td><i class="bx"></i></td><td><i class="bx"></i></td><td><i class="bx"></i></td><td><i class="bx"></i></td></tr>
+                  <tr><td>Pengguna</td><td><i class="bx"></i></td><td><i class="bx"></i></td><td><i class="bx"></i></td><td><i class="bx"></i></td></tr>
+                </tbody>
+              </table>
+              <div class="legend">
+                <span><i class="bx on" style="vertical-align:-3px"></i> penuh</span>
+                <span><i class="bx ro" style="vertical-align:-3px"></i> hanya lihat</span>
+                <span><i class="bx" style="vertical-align:-3px"></i> tidak ada akses</span>
+              </div>
+              <div class="note" style="margin-top:12px">Perubahan izin berlaku setelah pengguna memuat ulang halaman. Menu yang tidak diizinkan tidak ditampilkan, dan tautan langsungnya tetap ditolak di sisi server.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="caption">
+    <h4>Layar 2/6 &middot; Pengguna &amp; Hak Akses — izin harus terbaca sekali lihat</h4>
+    <ul>
+      <li><b>Daftar di kiri, detail peran di kanan.</b> Admin sering pindah-pindah antara memilih orang dan mengubah izin; kalau detailnya jadi halaman terpisah, pekerjaan jadi bolak-balik.</li>
+      <li><b>Matriks izin, bukan deretan kotak centang bertumpuk.</b> Empat kolom tindakan × daftar modul jauh lebih cepat diperiksa daripada daftar panjang ke bawah.</li>
+      <li><b>Status akun dibedakan dari peran.</b> “Verifikasi email” dan “Ditangguhkan” adalah urusan berbeda dari “Keuangan” — digabung akan membingungkan.</li>
+      <li><b>Catatan teknis di layar.</b> Menjelaskan bahwa menu hilang ≠ aman, supaya admin tidak merasa cukup menyembunyikan tombol.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ SCREEN 3: SALES ORDER ============ -->
+<section class="screen pagebreak">
+  <div class="chrome"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">erp.andalanniaga.co.id/penjualan/pesanan/SO-2026-0412</span></div>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><div class="lg">A</div><div><b>Andalan ERP</b><small>PT Andalan Niaga</small></div></div>
+      <div class="navgrp">Ringkasan</div>
+      <div class="navi">Dashboard</div>
+      <div class="navgrp">Operasional</div>
+      <div class="navi on">Penjualan <span class="cd">14</span></div>
+      <div class="navi">Pembelian <span class="cd">12</span></div>
+      <div class="navi">Persediaan</div>
+      <div class="navgrp">Keuangan</div>
+      <div class="navi">Akuntansi</div>
+      <div class="navgrp">Pengaturan</div>
+      <div class="navi">Pengguna</div>
+    </aside>
+    <div class="main">
+      <div class="topbar">
+        <div class="crumb">Penjualan <span class="sep">/</span> Pesanan <span class="sep">/</span> <b class="mono">SO-2026-0412</b></div>
+        <div class="who" style="margin-left:auto"><div class="av">DA</div> Dewi A. <span class="pill n">Penjualan</span></div>
+      </div>
+      <div class="body">
+        <div class="pagehd">
+          <div><h3>SO-2026-0412 &nbsp;<span class="pill info">Dikonfirmasi</span></h3>
+            <p>PT Sinar Jaya · 28/09/2026 · dibuat oleh Dewi Anggraini</p></div>
+          <div class="acts"><button class="btn">Cetak</button><button class="btn">Ubah</button><button class="btn btn-primary">Buat pengiriman</button></div>
+        </div>
+        <div class="steps">
+          <span class="step done"><i class="n">✓</i> Draf</span><span class="ln"></span>
+          <span class="step done"><i class="n">✓</i> Dikonfirmasi</span><span class="ln"></span>
+          <span class="step on"><i class="n">3</i> Pengiriman</span><span class="ln"></span>
+          <span class="step"><i class="n">4</i> Faktur</span><span class="ln"></span>
+          <span class="step"><i class="n">5</i> Selesai</span>
+        </div>
+        <div class="grid2">
+          <div>
+            <div class="card" style="margin-bottom:12px">
+              <div class="hd"><h4>Barang dipesan</h4><span class="r">3 item · 1 gudang</span></div>
+              <div class="bd" style="padding:0">
+                <table>
+                  <thead><tr><th>Barang</th><th class="num">Dipesan</th><th class="num">Terkirim</th><th class="num">Sisa</th><th class="num">Harga</th><th class="num">Jumlah</th></tr></thead>
+                  <tbody>
+                    <tr><td><b>Cat Tembok Premium 20L</b><span class="sub">CTP-20 · Gudang Utama</span></td><td class="num">40</td><td class="num">24</td><td class="num"><span class="pill warn">16</span></td><td class="num">1.250.000</td><td class="num">50.000.000</td></tr>
+                    <tr><td><b>Keramik Granit 60×60</b><span class="sub">KRG-60 · Gudang Utama</span></td><td class="num">120</td><td class="num">120</td><td class="num">0</td><td class="num">520.000</td><td class="num">62.400.000</td></tr>
+                    <tr><td><b>Pipa PVC 3 inci</b><span class="sub">PVC-3 · Gudang Bekasi</span></td><td class="num">60</td><td class="num">0</td><td class="num"><span class="pill warn">60</span></td><td class="num">267.500</td><td class="num">16.050.000</td></tr>
+                  </tbody>
+                </table>
+                <div style="display:grid;grid-template-columns:1fr 260px;gap:12px;padding:12px">
+                  <div class="note">Sisa pengiriman 76 unit dari 2 barang. Pengiriman sebagian diizinkan sesuai kesepakatan dengan pelanggan.</div>
+                  <div>
+                    <table>
+                      <tbody>
+                        <tr><td>Subtotal</td><td class="num">Rp 128.450.000</td></tr>
+                        <tr><td>Diskon (2%)</td><td class="num">− Rp 2.569.000</td></tr>
+                        <tr><td>PPN 11%</td><td class="num">Rp 13.846.910</td></tr>
+                        <tr><td><b>Total</b></td><td class="num"><b>Rp 139.727.910</b></td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="hd"><h4>Riwayat dokumen</h4></div>
+              <div class="bd">
+                <ul class="timeline">
+                  <li class="done"><div class="t">Pengiriman sebagian dibuat — DO-2026-0733</div><div class="s">28/09/2026 15:40 · Bayu Pratama (Gudang) · 24 unit</div></li>
+                  <li class="ok done"><div class="t">Pesanan dikonfirmasi</div><div class="s">28/09/2026 11:02 · Dewi Anggraini · batas kirim 05/10/2026</div></li>
+                  <li class="done"><div class="t">Harga disetujui (diskon 2%)</div><div class="s">28/09/2026 10:15 · Hendra Wijaya (Kepala Bagian)</div></li>
+                  <li class="now"><div class="t">Draf dibuat</div><div class="s">28/09/2026 08:40 · Dewi Anggraini</div></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card" style="margin-bottom:12px">
+              <div class="hd"><h4>Pelanggan</h4></div>
+              <div class="bd">
+                <p style="margin:0"><b>PT Sinar Jaya</b></p>
+                <p style="font-size:12.5px">Jl. Raya Bekasi KM 27, Jakarta Timur<br>NPWP 01.234.567.8-901.000</p>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+                  <span class="chip">Termin 30 hari</span><span class="chip">Batas kredit Rp 200 jt</span><span class="chip">Piutang Rp 62 jt</span>
+                </div>
+                <div class="note" style="margin-top:10px">Peringatan kredit: pemakaian kredit setelah pesanan ini mencapai 71% dari batas.</div>
+              </div>
+            </div>
+            <div class="card" style="margin-bottom:12px">
+              <div class="hd"><h4>Pengiriman</h4></div>
+              <div class="bd" style="padding:0">
+                <table>
+                  <thead><tr><th>Dokumen</th><th>Tanggal</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td><span class="mono">DO-2026-0733</span></td><td>28/09</td><td><span class="pill ok">Diterima</span></td></tr>
+                    <tr><td><span class="mono">—</span></td><td>—</td><td><span class="pill n">Belum dibuat</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card">
+              <div class="hd"><h4>Catatan</h4></div>
+              <div class="bd"><p style="font-size:12.5px">Pelanggan meminta sisa keramik dikirim bersamaan dengan pipa. Hubungi Pak Anto (0812-xxxx) sebelum memuat barang.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="caption">
+    <h4>Layar 3/6 &middot; Pesanan Penjualan — satu dokumen, seluruh keadaannya</h4>
+    <ul>
+      <li><b>Penunjuk langkah di atas dokumen.</b> Pengguna langsung tahu posisi dokumen sekarang dan apa langkah berikutnya, tanpa perlu bertanya ke bagian lain.</li>
+      <li><b>Kolom “Sisa” lebih penting daripada “Dipesan”.</b> Yang dicari operator saat pelanggan menelepon adalah berapa yang belum dikirim — jadi keempat angka ditampilkan berdampingan.</li>
+      <li><b>Pengiriman sebagian tidak disembunyikan.</b> Justru dijadikan fitur: sisa ditandai kuning dan dihitung otomatis di ringkasan kanan.</li>
+      <li><b>Peringatan batas kredit muncul di tempat keputusan diambil</b> (saat melihat pelanggan), bukan sebagai pesan galat setelah dokumen dikirim.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ SCREEN 4: PR -> PO ============ -->
+<section class="screen pagebreak">
+  <div class="chrome"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">erp.andalanniaga.co.id/pembelian/permintaan/PR-2026-0188</span></div>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><div class="lg">A</div><div><b>Andalan ERP</b><small>PT Andalan Niaga</small></div></div>
+      <div class="navgrp">Ringkasan</div>
+      <div class="navi">Dashboard</div>
+      <div class="navgrp">Operasional</div>
+      <div class="navi">Penjualan</div>
+      <div class="navi on">Pembelian <span class="cd">12</span></div>
+      <div class="navi">Persediaan</div>
+      <div class="navgrp">Keuangan</div>
+      <div class="navi">Akuntansi</div>
+      <div class="navgrp">Pengaturan</div>
+      <div class="navi">Pengguna</div>
+    </aside>
+    <div class="main">
+      <div class="topbar">
+        <div class="crumb">Pembelian <span class="sep">/</span> Permintaan <span class="sep">/</span> <b class="mono">PR-2026-0188</b></div>
+        <div class="who" style="margin-left:auto"><div class="av">HW</div> Hendra W. <span class="pill n">Kepala Bagian</span></div>
+      </div>
+      <div class="body">
+        <div class="pagehd">
+          <div><h3>PR-2026-0188 &nbsp;<span class="pill warn">Menunggu persetujuan Anda</span></h3>
+            <p>Permintaan pembelian · diajukan 28/09/2026 09:12 oleh Bayu Pratama (Gudang)</p></div>
+          <div class="acts"><button class="btn">Tolak</button><button class="btn">Minta revisi</button><button class="btn btn-primary">Setujui &amp; buat PO</button></div>
+        </div>
+        <div class="steps">
+          <span class="step done"><i class="n">✓</i> Diajukan</span><span class="ln"></span>
+          <span class="step on"><i class="n">2</i> Persetujuan Kepala Bagian</span><span class="ln"></span>
+          <span class="step"><i class="n">3</i> Persetujuan Keuangan</span><span class="ln"></span>
+          <span class="step"><i class="n">4</i> PO diterbitkan</span><span class="ln"></span>
+          <span class="step"><i class="n">5</i> Barang diterima</span>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <div class="hd"><h4>Barang diminta</h4><span class="r">4 item · usulan 2 pemasok</span></div>
+            <div class="bd" style="padding:0">
+              <table>
+                <thead><tr><th>Barang</th><th class="num">Jumlah</th><th>Alasan</th><th>Pemasok usulan</th><th class="num">Harga perkiraan</th></tr></thead>
+                <tbody>
+                  <tr><td><b>Cat Dasar 20L</b><span class="sub">CDS-20 · stok 6, minimum 25</span></td><td class="num">60</td><td><span class="pill warn">Stok menipis</span></td><td>PT Warna Abadi</td><td class="num">840.000</td></tr>
+                  <tr><td><b>Keramik Granit 60×60</b><span class="sub">KRG-60 · stok 18, minimum 40</span></td><td class="num">200</td><td><span class="pill warn">Stok menipis</span></td><td>CV Keramik Nusantara</td><td class="num">382.000</td></tr>
+                  <tr><td><b>Lem Keramik 25kg</b><span class="sub">LKM-25 · stok 44, minimum 60</span></td><td class="num">80</td><td><span class="pill warn">Stok menipis</span></td><td>PT Warna Abadi</td><td class="num">168.000</td></tr>
+                  <tr><td><b>Alat Semprot Cat</b><span class="sub">SMP-01 · permintaan baru</span></td><td class="num">4</td><td><span class="pill info">Permintaan proyek</span></td><td>CV Keramik Nusantara</td><td class="num">1.450.000</td></tr>
+                </tbody>
+              </table>
+              <div style="display:grid;grid-template-columns:1fr 280px;gap:12px;padding:12px">
+                <div class="note">Total perkiraan melewati batas wewenang Kepala Bagian (Rp 50 jt), sehingga setelah disetujui akan diteruskan otomatis ke Keuangan.</div>
+                <table>
+                  <tbody>
+                    <tr><td>Perkiraan subtotal</td><td class="num">Rp 62.400.000</td></tr>
+                    <tr><td>Anggaran departemen sisa</td><td class="num">Rp 214.000.000</td></tr>
+                    <tr><td><b>Perlu persetujuan</b></td><td class="num"><b>2 tingkat</b></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card" style="margin-bottom:12px">
+              <div class="hd"><h4>Alur persetujuan</h4></div>
+              <div class="bd">
+                <ul class="timeline">
+                  <li class="done"><div class="t">Diajukan — Bayu Pratama (Gudang)</div><div class="s">28/09/2026 09:12</div></li>
+                  <li class="now"><div class="t">Menunggu Kepala Bagian — Hendra Wijaya</div><div class="s">Batas wewenang Rp 50 jt</div></li>
+                  <li><div class="t">Persetujuan Keuangan — Rani Kusuma</div><div class="s">otomatis setelah tahap 2 disetujui</div></li>
+                  <li><div class="t">PO diterbitkan</div><div class="s">pemasok dipilih saat penerbitan</div></li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="hd"><h4>Catatan persetujuan</h4></div>
+              <div class="bd">
+                <div class="field" style="min-height:66px"><span class="ph">Tulis alasan bila menolak atau meminta revisi…</span></div>
+                <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+                  <span class="chip">Harga terlalu tinggi</span><span class="chip">Jumlah tidak sesuai</span><span class="chip">Ganti pemasok</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="caption">
+    <h4>Layar 4/6 &middot; Permintaan Pembelian → PO — persetujuan harus jelas, bukan tersembunyi</h4>
+    <ul>
+      <li><b>Status dokumen adalah judul layar.</b> “Menunggu persetujuan Anda” menyatu dengan nomor dokumen; pengguna tidak perlu mencari tahu kenapa layar ini terbuka.</li>
+      <li><b>Batas wewenang ditulis sebagai angka, bukan aturan tersirat.</b> Kepala Bagian tahu kenapa dokumen ini lanjut ke Keuangan dan apa yang terjadi setelah ia menekan “Setujui”.</li>
+      <li><b>Alasan permintaan menempel pada barangnya.</b> “Stok menipis (6 dari minimum 25)” memberi dasar keputusan, sedangkan sekadar jumlah 60 tidak.</li>
+      <li><b>Tombol mengikuti alur, bukan sebaliknya.</b> “Setujui &amp; buat PO” menggabungkan dua langkah yang selalu berurutan; “Minta revisi” disediakan agar dokumen jarang berakhir ditolak total.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ SCREEN 5: INVENTORY ============ -->
+<section class="screen pagebreak">
+  <div class="chrome"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">erp.andalanniaga.co.id/persediaan/kartu-stok/KRG-60</span></div>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><div class="lg">A</div><div><b>Andalan ERP</b><small>PT Andalan Niaga</small></div></div>
+      <div class="navgrp">Ringkasan</div>
+      <div class="navi">Dashboard</div>
+      <div class="navgrp">Operasional</div>
+      <div class="navi">Penjualan</div>
+      <div class="navi">Pembelian</div>
+      <div class="navi on">Persediaan</div>
+      <div class="navgrp">Keuangan</div>
+      <div class="navi">Akuntansi</div>
+      <div class="navgrp">Pengaturan</div>
+      <div class="navi">Pengguna</div>
+    </aside>
+    <div class="main">
+      <div class="topbar">
+        <div class="crumb">Persediaan <span class="sep">/</span> Kartu Stok <span class="sep">/</span> <b>KRG-60</b></div>
+        <div class="who" style="margin-left:auto"><div class="av">BP</div> Bayu P. <span class="pill n">Gudang</span></div>
+      </div>
+      <div class="body">
+        <div class="pagehd">
+          <div><h3>Keramik Granit 60×60 <span class="pill warn">Menipis</span></h3>
+            <p>KRG-60 · satuan dus · Gudang Utama · metode penilaian rata-rata</p></div>
+          <div class="acts"><button class="btn">Ekspor Excel</button><button class="btn">Penyesuaian stok</button><button class="btn btn-primary">Mutasi antar gudang</button></div>
+        </div>
+        <div class="tabs"><span class="on">Kartu stok</span><span>Stok per gudang</span><span>Rekap mutasi</span><span>Riwayat penyesuaian</span></div>
+        <div class="cards" style="grid-template-columns:repeat(4,1fr)">
+          <div class="kpi"><div class="k">On hand</div><div class="v">18</div><div class="d">Gudang Utama</div></div>
+          <div class="kpi"><div class="k">Dipesan pelanggan</div><div class="v">12</div><div class="d">2 pesanan belum kirim</div></div>
+          <div class="kpi"><div class="k">Tersedia</div><div class="v">6</div><div class="d down">di bawah minimum 40</div></div>
+          <div class="kpi"><div class="k">Nilai persediaan</div><div class="v">Rp 6,9 jt</div><div class="d">rata-rata Rp 382.000/dus</div></div>
+        </div>
+        <div class="card">
+          <div class="bd" style="padding:0">
+            <table>
+              <thead><tr><th>Tanggal</th><th>Dokumen</th><th>Keterangan</th><th class="num">Masuk</th><th class="num">Keluar</th><th class="num">Saldo</th><th class="num">Harga rata-rata</th></tr></thead>
+              <tbody>
+                <tr><td>28/09 15:40</td><td><span class="mono">DO-2026-0733</span></td><td>Penjualan — PT Sinar Jaya</td><td class="num">—</td><td class="num">24</td><td class="num">18</td><td class="num">382.000</td></tr>
+                <tr><td>27/09 10:18</td><td><span class="mono">GRN-2026-0090</span></td><td>Penerimaan barang — PO-2026-0329</td><td class="num">12</td><td class="num">—</td><td class="num">42</td><td class="num">382.000</td></tr>
+                <tr><td>26/09 14:02</td><td><span class="mono">ADJ-2026-0044</span></td><td>Penyesuaian — keramik pecah</td><td class="num">—</td><td class="num">6</td><td class="num">30</td><td class="num">382.000</td></tr>
+                <tr><td>25/09 09:35</td><td><span class="mono">DO-2026-0721</span></td><td>Penjualan — CV Bangun Sentosa</td><td class="num">—</td><td class="num">36</td><td class="num">36</td><td class="num">380.500</td></tr>
+                <tr><td>22/09 11:50</td><td><span class="mono">TRF-2026-0012</span></td><td>Mutasi dari Gudang Bekasi</td><td class="num">48</td><td class="num">—</td><td class="num">72</td><td class="num">380.500</td></tr>
+              </tbody>
+            </table>
+            <div class="pager" style="padding:10px 13px 12px">
+              <span>Menampilkan 5 dari 61 mutasi</span>
+              <span class="pg"><i class="on">1</i><i>2</i><i>3</i><i>…</i><i>12</i><i>›</i></span>
+            </div>
+          </div>
+        </div>
+        <div class="note" style="margin-top:12px">Setiap baris bisa dibuka untuk melihat dokumen sumbernya. Saldo tidak pernah bisa diubah langsung — koreksi hanya lewat penyesuaian yang tercatat.</div>
+      </div>
+    </div>
+  </div>
+  <div class="caption">
+    <h4>Layar 5/6 &middot; Persediaan / Kartu Stok — angka harus bisa dipertanggungjawabkan</h4>
+    <ul>
+      <li><b>Empat angka yang sering tertukar ditampilkan terpisah:</b> on hand, dipesan, tersedia, nilai. “Stok ada 18 tapi tersedia 6” adalah pertanyaan nomor satu di gudang.</li>
+      <li><b>Saldo berjalan di setiap baris.</b> Untuk menjelaskan selisih, orang menelusuri baris demi baris — bukan menjumlah ulang dari awal.</li>
+      <li><b>Nilai persediaan ikut ditampilkan.</b> Gudang butuh jumlah fisik, keuangan butuh nilai; satu layar melayani keduanya tanpa dua laporan berbeda.</li>
+      <li><b>Saldo hanya berubah lewat dokumen.</b> Tidak ada penyuntingan langsung — aturan ini ditulis di layar agar tidak jadi perdebatan.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ SCREEN 6: ACCOUNTING ============ -->
+<section class="screen pagebreak">
+  <div class="chrome"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">erp.andalanniaga.co.id/akuntansi/jurnal</span></div>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><div class="lg">A</div><div><b>Andalan ERP</b><small>PT Andalan Niaga</small></div></div>
+      <div class="navgrp">Ringkasan</div>
+      <div class="navi">Dashboard</div>
+      <div class="navgrp">Operasional</div>
+      <div class="navi">Penjualan</div>
+      <div class="navi">Pembelian</div>
+      <div class="navi">Persediaan</div>
+      <div class="navgrp">Keuangan</div>
+      <div class="navi on">Akuntansi</div>
+      <div class="navi">Laporan</div>
+      <div class="navgrp">Pengaturan</div>
+      <div class="navi">Pengguna</div>
+    </aside>
+    <div class="main">
+      <div class="topbar">
+        <div class="crumb">Akuntansi <span class="sep">/</span> <b>Jurnal Umum</b></div>
+        <div class="who" style="margin-left:auto"><div class="av">RK</div> Rani K. <span class="pill n">Keuangan</span></div>
+      </div>
+      <div class="body">
+        <div class="pagehd">
+          <div><h3>Jurnal Umum &nbsp;<span class="pill info">Periode Sep 2026 · belum ditutup</span></h3>
+            <p>18 jurnal manual · 1.204 jurnal otomatis dari dokumen operasional</p></div>
+          <div class="acts"><button class="btn">Impor</button><button class="btn">Tutup periode</button><button class="btn btn-primary">Buat jurnal</button></div>
+        </div>
+        <div class="tabs"><span class="on">Jurnal umum</span><span>Daftar akun</span><span>Neraca saldo</span><span>Buku besar</span></div>
+        <div class="filterbar">
+          <div class="f"><label class="lb">Periode</label><div class="field">01–28 Sep 2026 ▾</div></div>
+          <div class="f"><label class="lb">Sumber</label><div class="field">Semua sumber ▾</div></div>
+          <div class="f"><label class="lb">Status</label><div class="field">Belum diposting ▾</div></div>
+          <div><button class="btn btn-primary">Terapkan</button></div>
+          <div style="margin-left:auto"><span class="pill n">Total debet = kredit ✓</span></div>
+        </div>
+        <div class="card">
+          <div class="bd" style="padding:0">
+            <table>
+              <thead><tr><th>Tanggal</th><th>No. bukti</th><th>Keterangan</th><th>Akun</th><th class="num">Debet</th><th class="num">Kredit</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>28/09</td><td><span class="mono">JV-2026-1240</span></td><td>Penyesuaian sewa gudang September</td><td>5-2100 Beban Sewa</td><td class="num">18.000.000</td><td class="num">—</td><td><span class="pill warn">Draft</span></td></tr>
+                <tr><td></td><td></td><td class="sub" style="padding-left:10px">lawan akun</td><td>2-1100 Utang Usaha</td><td class="num">—</td><td class="num">18.000.000</td><td></td></tr>
+                <tr><td>27/09</td><td><span class="mono">JV-2026-1239</span></td><td>Penyusutan kendaraan operasional</td><td>5-3200 Beban Penyusutan</td><td class="num">7.500.000</td><td class="num">—</td><td><span class="pill ok">Diposting</span></td></tr>
+                <tr><td></td><td></td><td class="sub" style="padding-left:10px">lawan akun</td><td>1-2400 Akum. Penyusutan</td><td class="num">—</td><td class="num">7.500.000</td><td></td></tr>
+                <tr><td>27/09</td><td><span class="mono">INV-2026-0451</span></td><td>Faktur penjualan — PT Sinar Jaya</td><td>1-1200 Piutang Usaha</td><td class="num">139.727.910</td><td class="num">—</td><td><span class="pill ok">Otomatis</span></td></tr>
+              </tbody>
+            </table>
+            <div class="pager" style="padding:10px 13px 12px">
+              <span>Menampilkan 3 dari 18 jurnal manual</span>
+              <span class="pg"><i class="on">1</i><i>2</i><i>›</i></span>
+            </div>
+          </div>
+        </div>
+        <div class="cards" style="margin-top:12px">
+          <div class="card"><div class="hd"><h4>Neraca saldo (ringkas)</h4><span class="r">per 28/09/2026</span></div><div class="bd" style="padding:0">
+            <table>
+              <thead><tr><th>Akun</th><th class="num">Debet</th><th class="num">Kredit</th></tr></thead>
+              <tbody>
+                <tr><td>1-1200 Piutang Usaha</td><td class="num">862.410.000</td><td class="num">—</td></tr>
+                <tr><td>1-1400 Persediaan</td><td class="num">3.104.500.000</td><td class="num">—</td></tr>
+                <tr><td>2-1100 Utang Usaha</td><td class="num">—</td><td class="num">1.482.300.000</td></tr>
+                <tr><td>4-1000 Penjualan</td><td class="num">—</td><td class="num">1.842.000.000</td></tr>
+                <tr><td><b>Jumlah</b></td><td class="num"><b>4.812.700.000</b></td><td class="num"><b>4.812.700.000</b></td></tr>
+              </tbody>
+            </table></div></div>
+          <div class="card"><div class="hd"><h4>Pemeriksaan sebelum tutup buku</h4></div><div class="bd">
+            <table><tbody>
+              <tr><td>Jurnal tidak seimbang</td><td class="num"><span class="pill ok">0</span></td></tr>
+              <tr><td>Dokumen belum dijurnal</td><td class="num"><span class="pill warn">3</span></td></tr>
+              <tr><td>Penerimaan tanpa PO</td><td class="num"><span class="pill err">1</span></td></tr>
+              <tr><td>Faktur lewat jatuh tempo</td><td class="num"><span class="pill warn">9</span></td></tr>
+            </tbody></table>
+            <div class="note" style="margin-top:10px">Tutup periode dikunci sampai ketiga dokumen belum-jurnal diselesaikan. Ini mencegah angka terlanjur diumumkan.</div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="caption">
+    <h4>Layar 6/6 &middot; Akuntansi — rapi, dapat diaudit, dan tidak menakutkan</h4>
+    <ul>
+      <li><b>Jurnal manual dan jurnal otomatis dipisah jelas.</b> Operator melihat asal angkanya (faktur, penerimaan), bukan sekadar deret nomor akun.</li>
+      <li><b>Baris lawan akun ditampilkan menjorok di bawah jurnalnya.</b> Jurnal jadi terbaca sebagai satu cerita, bukan dua baris yang terpisah.</li>
+      <li><b>Neraca saldo dan pemeriksaan tutup buku berdampingan.</b> Sebelum menutup periode, pengguna tahu apa saja yang masih menggantung.</li>
+      <li><b>Penanda “debet = kredit” di bar atas.</b> Kepercayaan pada angka diperoleh dari pemeriksaan yang terlihat, bukan dari janji.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ PENUTUP ============ -->
+<section class="sheet pagebreak">
+  <div class="eyebrow">04 &middot; Serah terima &amp; catatan implementasi</div>
+  <h2>Yang saya serahkan ke tim programmer</h2>
+  <div class="cols" style="margin-top:14px">
+    <div>
+      <ul>
+        <li><b>Daftar layar per modul</b> beserta prioritas pengerjaan — dasar perhitungan waktu, bukan tafsiran “seluruh halaman”.</li>
+        <li><b>Design system</b>: warna, tipografi, jarak 4/8/12/16/24 px, komponen tabel–filter–form–modal–notifikasi.</li>
+        <li><b>Keadaan setiap layar</b>: data kosong, sedang memuat, gagal memuat, tidak punya izin akses, dan jumlah data besar (paginasi atau gulir bertahap).</li>
+        <li><b>Aturan tampilan status</b>: nama status, warna, dan tombol apa yang muncul pada tiap status dokumen.</li>
+        <li><b>Catatan aksesibilitas</b>: kontras teks minimal 4.5:1, fokus keyboard terlihat, ukuran sasaran klik ≥ 32 px, tabel tetap terbaca dengan pembaca layar.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Perilaku yang disepakati lebih dulu</h3>
+      <ul>
+        <li>Filter tetap tersimpan saat berpindah halaman dan saat kembali dari detail dokumen.</li>
+        <li>Nomor dokumen tidak pernah didaur ulang; dokumen batal tetap muncul dengan penanda.</li>
+        <li>Menu mengikuti izin peran; penolakan tetap terjadi di sisi server.</li>
+        <li>Aksi merusak (batalkan, hapus) selalu meminta konfirmasi dan mencatat siapa pelakunya.</li>
+      </ul>
+      <h3 style="margin-top:16px">Cara saya bekerja bersama Anda</h3>
+      <ul>
+        <li>Laporan mingguan berupa tautan pratinjau dan daftar layar yang sudah selesai.</li>
+        <li>Satu putaran revisi per layar setelah Anda beri catatan; catatan saya rangkum jadi daftar agar tidak ada yang terlewat.</li>
+        <li>Semua keputusan yang mengubah alur kerja saya mintakan persetujuan lebih dulu sebelum digambar.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cols3" style="margin-top:18px">
+    <div class="card"><div class="hd"><h4>Keterbatasan yang saya akui</h4></div><div class="bd"><p style="font-size:12.5px">Struktur tabel dan alur di dokumen ini saya susun dari pengalaman membangun sistem internal, <b>bukan</b> dari wawancara pengguna di perusahaan Anda. Karena itu langkah pertama setelah disetujui adalah memastikan daftar modul, status dokumen, dan aturan persetujuan sesuai kenyataan.</p></div></div>
+    <div class="card"><div class="hd"><h4>Contoh lanjutan yang siap dibuat</h4></div><div class="bd"><p style="font-size:12.5px">Bila diperlukan: layar Master Barang &amp; Harga, Faktur &amp; Piutang, Penerimaan Barang, Penggajian, serta dasbor per peran (Gudang/Keuangan) dengan tampilan berbeda sesuai kebutuhan pekerjaannya.</p></div></div>
+    <div class="card"><div class="hd"><h4>Kontak</h4></div><div class="bd"><p style="font-size:12.5px"><b>Gilang Zahra Ramdhani</b><br>Pengembang web (Laravel/PHP), Jakarta<br>WhatsApp 0877-1316-6791</p></div></div>
+  </div>
+</section>
+
+<footer>Studi kasus rancangan UI/UX ERP — Gilang Zahra Ramdhani · 28 September 2026 · dokumen contoh, bukan pekerjaan klien</footer>
+</div>
+</body>
+</html>
